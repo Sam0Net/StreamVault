@@ -17,7 +17,11 @@ CREATE TABLE usuarios (
     email VARCHAR(150) NOT NULL UNIQUE,
     tipo_usuario VARCHAR(20) NOT NULL CHECK (tipo_usuario IN ('Free', 'Premium'))
 );
+-- Actualización + columna contraseña
+ALTER TABLE usuarios
+ADD contrasena VARCHAR(255) NOT NULL DEFAULT '123456789';
 
+-- Suscripciones de usuarios
 CREATE TABLE suscripciones (
     id_suscripcion INT IDENTITY(1,1) PRIMARY KEY,
     id_usuario INT NOT NULL FOREIGN KEY REFERENCES usuarios(id_usuario),
@@ -26,13 +30,25 @@ CREATE TABLE suscripciones (
     fecha_fin DATE NOT NULL
 );
 
+-- Contenidos
 CREATE TABLE contenidos (
     id_contenido VARCHAR(10) PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
     tipo_contenido VARCHAR(20) NOT NULL CHECK (tipo_contenido IN ('Pelicula', 'Serie', 'Episodio')),
     duracion_total INT NOT NULL
 );
+-- Actualización de campos
+ALTER TABLE contenidos ADD
+    genero VARCHAR(100) NULL,
+    anio INT NULL,
+    calificacion FLOAT NULL,
+    director VARCHAR(150) NULL,
+    clasificacion VARCHAR(50) NULL,
+    temporadas INT NULL,
+    numero_episodio INT NULL,
+    titulo_episodio VARCHAR(255) NULL;
 
+--Historial de usuarios
 CREATE TABLE historial_reproducciones (
     id_reproduccion INT IDENTITY(1,1) PRIMARY KEY,
     id_usuario INT NOT NULL FOREIGN KEY REFERENCES usuarios(id_usuario),
@@ -41,6 +57,7 @@ CREATE TABLE historial_reproducciones (
     duracion_seg INT NOT NULL
 );
 
+-- Insertamos los planes disponibles
 INSERT INTO planes (nombre, precio, limite_horas, con_anuncios, perfiles, descargas) VALUES
 ('PlanFree', 0.00, 10, 1, 1, 0),
 ('PlanBasico', 9.90, 30, 0, 1, 0),
