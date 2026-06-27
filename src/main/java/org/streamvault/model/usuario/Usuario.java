@@ -1,10 +1,10 @@
 package org.streamvault.model.usuario;
-
 import org.streamvault.model.historial.Historial;
 import org.streamvault.model.suscripcion.Suscripcion;
 import java.time.LocalDateTime;
 
 public abstract class Usuario {
+    // Atributos
     private Long id;
     private String username;
     private String email;
@@ -12,9 +12,9 @@ public abstract class Usuario {
     private Suscripcion suscripcion;
     private Historial historial;
     private LocalDateTime fechaRegistro;
-
+    // Constructor vacío
     public Usuario() {}
-
+    // Constructor con parámetros
     public Usuario(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -22,11 +22,11 @@ public abstract class Usuario {
         this.fechaRegistro = LocalDateTime.now();
         this.historial = new Historial();
     }
-
+    // Métodos abstract
     public abstract boolean puedeVerContenido4K();
     public abstract boolean puedeVerSinAnuncios();
     public abstract int obtenerMaximoDispositivos();
-
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
