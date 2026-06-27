@@ -1,15 +1,16 @@
 package org.streamvault.catalogo;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.streamvault.model.contenido.Contenido;
 import org.streamvault.model.contenido.Pelicula;
 import org.streamvault.model.contenido.Serie;
+
 import java.util.List;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
-// Uso de framework JUnit 5
+
 public class CatalogoTest {
-    //
     private Catalogo catalogo;
     private Contenido pelicula;
     private Contenido serie;
@@ -23,10 +24,10 @@ public class CatalogoTest {
 
     @Test
     public void testAgregarYBuscarPorId() {
-        catalogo.agregar(pelicula); // agrega objeto pelicula a catalogo
-        Contenido resultado = catalogo.buscarPorId("P01"); // lo recupera por su id
-        assertNotNull(resultado, "El contenido no debería ser nulo"); // verificar que objeto no sea nulo.
-        assertEquals("Interstellar", resultado.getTitulo()); // comprueba que resultado esperado sea igual al real.
+        catalogo.agregar(pelicula);
+        Contenido resultado = catalogo.buscarPorId("P01");
+        assertNotNull(resultado, "El contenido no debería ser nulo");
+        assertEquals("Interstellar", resultado.getTitulo());
     }
 
     @Test
@@ -43,14 +44,13 @@ public class CatalogoTest {
         catalogo.agregar(serie); // Ambos pertenecen al género "Sci-Fi"
         Set<String> generos = catalogo.listarGeneros();
         assertEquals(1, generos.size(), "El conjunto Set no debe admitir géneros duplicados");
-        assertTrue(generos.contains("Sci-Fi")); // Condicion booleana es verdadera.
+        assertTrue(generos.contains("Sci-Fi"));
     }
 
     @Test
     public void testEliminarContenido() {
         catalogo.agregar(pelicula);
         catalogo.eliminar("P01");
-        //Remueve un registro del catálogo usando su ID y verifica que ya no exista.
         Contenido resultado = catalogo.buscarPorId("P01");
         assertNull(resultado, "El contenido debió ser removido del catálogo");
     }
