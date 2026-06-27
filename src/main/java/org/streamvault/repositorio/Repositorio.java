@@ -1,46 +1,42 @@
 package org.streamvault.repositorio;
 
-import org.streamvault.model.usuario.Usuario;
-
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-public class Repositorio {
-    private List<Usuario> usuarios;
+public class Repositorio<T> {
+    private final List<T> elementos = new ArrayList<>();
 
-    public Repositorio() {
-        this.usuarios = new ArrayList<>();
+    public void agregar(T elemento) {
+        elementos.add(elemento);
     }
 
-    public void registrarUsuario(Usuario u) {
-        usuarios.add(u);
+    public void eliminar(T elemento) {
+        elementos.remove(elemento);
     }
 
-    public Usuario buscarPorUsername(String username) {
-        Iterator<Usuario> it = usuarios.iterator();
-        while (it.hasNext()) {
-            Usuario u = it.next();
-            if (u.getUsername().equalsIgnoreCase(username)) {
-                return u;
-            }
-        }
-        return null;
+    public List<T> obtenerTodos() {
+        return new ArrayList<>(elementos);
     }
 
-    public boolean eliminarUsuario(String username) {
-        Iterator<Usuario> it = usuarios.iterator();
-        while (it.hasNext()) {
-            Usuario u = it.next();
-            if (u.getUsername().equalsIgnoreCase(username)) {
-                it.remove();
-                return true;
-            }
-        }
-        return false;
+    public List<T> filtrar(Predicate<T> criterio) {
+        return elementos.stream()
+                .filter(criterio)
+                .collect(Collectors.toList());
     }
 
-    public List<Usuario> listarUsuarios() {
-        return usuarios;
+    public List<T> ordenar(Comparator<T> criterio) {
+        return elementos.stream()
+                .sorted(criterio)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<T> buscar(Predicate<T> criterio) {
+        return elementos.stream()
+                .filter(criterio)
+                .findFirst();
     }
 }

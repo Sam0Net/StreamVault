@@ -1,16 +1,17 @@
-package org.streamvault.model.contenido;
+package org.streamvault.model.contenido; // Paquete donde está la clase
 
-import org.streamvault.interfaces.Reproducible;
+import org.streamvault.interfaces.Reproducible; // Importa la interfaz
 
 public abstract class Contenido implements Reproducible {
+    // Atributos privados
     private String id;
     private String titulo;
     private String genero;
     private int anio;
     private double calificacion;
-
+    // Constructor vacío: permite crear objetos sin inicializar atributos de inmediato
     public Contenido() {}
-
+    // Constructor que Inicializa atributos
     public Contenido(String id, String titulo, String genero, int anio, double calificacion) {
         this.id = id;
         this.titulo = titulo;
@@ -18,9 +19,10 @@ public abstract class Contenido implements Reproducible {
         this.anio = anio;
         this.calificacion = calificacion;
     }
-
+    // Método abstracto que cada subclase debe implementar
     public abstract String getInfo();
 
+    // Getters y setters para acceder/modificar atributos
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
