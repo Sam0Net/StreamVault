@@ -10,6 +10,11 @@ CREATE TABLE planes (
     perfiles INT NULL,
     descargas BIT NOT NULL DEFAULT 0
 );
+-- Insertamos los planes disponibles
+INSERT INTO planes (nombre, precio, limite_horas, con_anuncios, perfiles, descargas) VALUES
+('PlanFree', 0.00, 10, 1, 1, 0),
+('PlanBasico', 9.90, 30, 0, 1, 0),
+('PlanPremium', 19.90, NULL, 0, 4, 1);
 
 CREATE TABLE usuarios (
     id_usuario INT IDENTITY(1,1) PRIMARY KEY,
@@ -57,9 +62,9 @@ CREATE TABLE historial_reproducciones (
     duracion_seg INT NOT NULL
 );
 
--- Insertamos los planes disponibles
-INSERT INTO planes (nombre, precio, limite_horas, con_anuncios, perfiles, descargas) VALUES
-('PlanFree', 0.00, 10, 1, 1, 0),
-('PlanBasico', 9.90, 30, 0, 1, 0),
-('PlanPremium', 19.90, NULL, 0, 4, 1);
 
+select * from suscripciones;
+select * from planes;
+select * from usuarios;
+select * from contenidos;
+select * from historial_reproducciones;
