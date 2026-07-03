@@ -70,8 +70,8 @@ public class ReproduccionDB {
         String query = "DELETE FROM historial_reproducciones WHERE id_usuario = ? AND id_contenido = ?";
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setInt(2, idUsuario);
-            ps.setString(1, idContenido);
+            ps.setInt(1, idUsuario);
+            ps.setString(2, idContenido);
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Registro eliminado de la base de datos.");
